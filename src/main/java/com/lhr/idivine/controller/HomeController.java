@@ -15,4 +15,8 @@ public class HomeController {
         return "home/main";
     }
 
+    @RequestMapping("/home/manager")
+    public String manager(){
+        return "home/manager";
+    }
 }

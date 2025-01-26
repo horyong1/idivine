@@ -1,0 +1,133 @@
+
+body{
+    margin: 0 ;
+    padding: 0;
+}
+/* 네비바 스타일 */
+nav {
+    display: flex;
+    align-items: center;
+    padding: 20px 20px;
+    background-color: #d1cfcf;
+    font-family: 'Arial', sans-serif;
+}
+
+
+/* 메뉴 스타일 */
+.menu {
+    gap: 50px;
+    margin-left: 150px;
+}
+
+/* 메뉴 아이템 스타일 */
+.menu-item {
+    font-size: 20px;
+    color: white;
+    cursor: pointer;
+    transition: c1lor 0 30px 0.3s ease;
+    font-weight: bold;
+}
+
+.menu-item:hover {
+    color: #707070; 
+}
+
+.active{
+    color: #707070;
+}
+
+.container{
+    margin-top: 5rem;
+    margin-left: 5rem;
+}
+
+.search-bar{
+    margin-bottom: 30px;
+}
+.d-none{
+    display: none;
+}
+
+.text-content{
+    
+    width: 88.7%;
+    padding: 5px 10px;
+    margin: 10px 0 30px 0;
+    border: 1px solid black;
+    border-radius: 5px;
+}
+
+.border-b{
+    border-bottom: 2px solid black;
+}
+
+.tun{
+    display: block;
+    overflow: hidden;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+}
+
+.text{
+    margin: auto;
+    width: 50rem;
+}
+
+/* 호버 시 배경색 */
+.st:hover {
+    background-color: #f5f5f5;
+}
+
+
+
+.fs-0-7{
+    font-size: 0.7rem;
+}
+.fs-0-8{
+    font-size: 0.8rem;
+}
+.fs-0-9{
+    font-size: 0.9rem;
+}
+
+
+
+
+/* 하이라이트 */
+.species {
+    background-color: yellow !important;
+    color: black;
+}
+
+.drug {
+    background-color: lightgreen !important;
+    color: black;
+}
+
+.DNA {
+    background-color: yellow !important;
+    color: black;
+}
+
+.gene {
+    background-color: hotpink !important;
+    color: black;
+}
+
+.disease {
+    background-color: red !important;
+    color: black;
+}
+
+.cell_type {
+    background-color: green !important;
+    color: black;
+}
+
+.cell_line{
+    background-color: #4ca0af !important;
+    color: black;
+}
+.RNA{
+    background-color: goldenrod;
+}

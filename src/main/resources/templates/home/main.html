@@ -3,128 +3,305 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <title>I.DIVINE</title>
 </head>
-<style>
-    /* styles.css */
-body {
-    margin: 0;
-    font-family: Arial, sans-serif;
-}
-
-.navbar {
-    display: flex;
-    justify-content: flex-start;
-    align-items: center;
-    background-color: #e2e2e2;
-    padding: 20px 20px;
-    color: white;
-}
-
-.navbar-logo a {
-    color: white;
-    text-decoration: none;
-    font-size: 24px;
-    font-weight: bold;
-}
-
-.navbar-menu {
-    list-style: none;
-    display: flex;
-    margin: 0;
-    margin-left: 150px;
-}
-
-.navbar-menu li {
-    margin: 0 15px;
-}
-
-.navbar-menu a {
-    color: white;
-    text-decoration: none;
-    font-size: 22px;
-}
-
-.navbar-menu a:hover {
-    color: #8a8a8a;
-}
-
-.navbar-button .btn {
-    background-color: #8a8a8a;
-    color: white;
-    text-decoration: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    transition: background-color 0.3s;
-}
-
-.navbar-button .btn:hover {
-    background-color: #0097a7;
-}
-
-/* Mobile Menu Toggle */
-.navbar-toggle {
-    display: none;
-    flex-direction: column;
-    cursor: pointer;
-}
-
-.navbar-toggle .bar {
-    height: 3px;
-    width: 25px;
-    background-color: white;
-    margin: 3px 0;
-}
-.container{
-    width: 100%;
-}
-.border{
-    border: 1px solid black;
-    border-radius: 10px;
-    width: 40%;
-    height: 50%;
-}
-
-</style>
 <body>
-    <nav class="navbar">
-        <div class="navbar-logo">
-            <a href="#"><img src="/public/img/idivine.svg" alt=""></a>
-        </div>
-        <ul class="navbar-menu">
-            <li><a href="#home">Finder</a></li>
-            <li><a href="#about">Manager</a></li>
-        </ul>
+    
+    <div class="container-fluid">
+        <div th:replace="~{/navi/nav::topNav}"></div>
+        <div class="row ">
+            <div class="col-8 mx-auto">
+
+                <div class="row pt-5 pb-3">
+                    <div class="col-1 p-0">
+                        <select class="form-select form-select-sm" name="" id="search_type">
+                            <option value="pmid" selected>PMID</option>
+                            <option value="text">TEXT</option>
+                        </select>
+                    </div>
+                    <div class="col">
+                        <input id="search_value" class="form-control form-control-sm" type="text">
+                    </div>
+                    <div class="col-auto d-gird p-0">
+                        <button id="search_btn" class="btn btn-outline-dark btn-sm">search</button>
         
-    </nav>
-    <div class="container">
-        <div class="search-var">
-            <label for="pmidInput">PMID:</label>
-            <input id="pmidInput" type="text">
-            <button>search</button>
-        </div>
-        <div>
-            <div class="border">
-                ASDKAJDKJALSKDABR <br>
-                ASDKAJDKJALSKDABR <br>
-                ASDKAJDKJALSKDABR <br>
-                ASDKAJDKJALSKDABR <br>
-                ASDKAJDKJALSKDABR <br>
+                    </div>
+                </div>
+
+                <div class="row d-none" id="content">
+                    <div class="col">
+                        <div class="row pb-2">
+                            <div class="col p-0 fw-bold fs-3">DETAIL</div>
+                        </div>
+                        <div  class="row">
+                            <div class="col border rounded-3 pb-3">
+                                <div class="row">
+                                    <div id="close-btn" class="col-auto ms-auto fw-bold py-2 border-start border-bottom rounded-3 bg-body-secondary" style="cursor: pointer;">
+                                        <i class="bi bi-x-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="row">
+        
+                                </div>
+                                <div class="row">
+                                    <div id="text" class="col"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="updateContent" class="row d-none">
+                    <div class="col">
+                        <textarea class="form-control form-control-sm" rows="10" name="updateValue" id="updateValue"></textarea>
+                    </div>
+                </div>
+
+                <div class="row py-3">
+                    <div class="col">
+                        <div class="row bg-body-secondary py-2 border-2 border-dark border-bottom text-center fw-bold">
+                            <div class="col-1">pmid</div>
+                            <div class="col-7">text</div>
+                            <div class="col">annotations</div>
+                            <div class="col">timestamp</div>
+                            <div class="col">update</div>
+                        </div>
+                        <div class="row">
+                            <div id="search_content" class="col fs-0-9 text-center">
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col-8"></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
-    </div>  
+    </div>
+    <script src="/public/js/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
     <script>
-        window.addEventListener('DOMContentLoaded',()=>{
+        
+        window.addEventListener('DOMContentLoaded', ()=>{
+            document.getElementById('finder').classList.add("active");
+            const searchType = document.getElementById("search_type").value;
+            const searchValue = document.getElementById("search_value").value;
+            list(searchType,searchValue); 
+        })
+        
+        // 리스트 조회
+        function list(searchType, searchValue){
+            fetch(`/api/idivine/list?searchType=${searchType}&searchValue=${searchValue}`)
+            .then(r => r.json())
+            .then(response => {
+                const searchContent = document.getElementById("search_content");
+                searchContent.innerHTML = '';
+                const list = response;
+                list.forEach(item => {
+                    // 리스트 keywordInfo 안에 NaN값 정수 0으로 변환
+                    const keywordInfo = item.keywordInfo.replace(/NaN/g,0);
+                    const parsKeywordInfo = JSON.parse(keywordInfo);
+                    const firstKeyword = parsKeywordInfo[0];
+                    const date = new Date(firstKeyword.timestamp); 
+
+                    // 여기부터터 리스트 createElement로 생성
+                    const row = document.createElement('div');
+                    row.setAttribute('onclick', `detail(${firstKeyword.pmid})`)
+                    row.className = 'row py-2 border-bottom st';
+                    
+                    const tdPmid = document.createElement('div');
+                    tdPmid.innerText = firstKeyword.pmid;
+                    tdPmid.className = 'col-1 text-start align-self-center';
+                    
+                    const tdText = document.createElement('div');
+                    // text 첫번째 . 찾아서 앞 문장만 출력
+                    tdText.innerText = firstKeyword.text.slice(0, firstKeyword.text.indexOf('.') + 1);
+                    tdText.className = 'col-7 text-truncate text-start align-self-center';
+                    
+                    const tdAnnotations = document.createElement('div');
+                    tdAnnotations.innerText = firstKeyword.annotations.length + ' annotations';
+                    tdAnnotations.className = 'col align-self-center';
+                    
+                    const tdTimestamp = document.createElement('div');
+                    tdTimestamp.innerText = formatDate(date);
+                    tdTimestamp.className = 'col align-self-center';
+
+                    const update = document.createElement('div');
+                    update.className = 'col align-self-center'
+                    const updateBtn = document.createElement('button');
+                    updateBtn.className = 'btn btn-primary btn-sm';
+                    updateBtn.setAttribute('onclick', `update(${item.pmid})`)
+                    updateBtn.innerText = 'update'
+                    update.appendChild(updateBtn);
+                    
+                    row.appendChild(tdPmid);
+                    row.appendChild(tdText);
+                    row.appendChild(tdAnnotations);
+                    row.appendChild(tdTimestamp);
+                    row.appendChild(update)
+
+                    searchContent.appendChild(row);
+                });
+            })
+        }
+        
+        //  상세보기
+        function detail(pmid){
+ 
+            fetch(`/api/idivine/detail/${pmid}`)
+            .then(r=>r.json())
+            .then(response => {
+                const list = response
+                
+                // annotations.prob 중 NaN 값 오류로 모든 NaN값 정수 0으로로 변환
+                const keywordInfo = response.keywordInfo.replace(/NaN/g, 0);
+                const parsKeywordInfo = JSON.parse(keywordInfo);
+                console.log(parsKeywordInfo)
+
+
+
+                const content = document.getElementById('content');
+                const text = document.getElementById('text');
+                // 하이라이트 함수 실행
+                highlight(parsKeywordInfo)
+                content.classList.remove('d-none');
+            })
+        }
+
+        function removeOverlappingAnnotations(annotations) {
+            // 시작 위치 기준으로 정렬
+            annotations.sort((a, b) => a.span.begin - b.span.begin);
+
+            const filtered = [];
+            let lastEnd = -1; // 마지막 끝 위치를 추적
+
+            for (let i = 0; i < annotations.length; i++) {
+                const current = annotations[i];
+                const { begin, end } = current.span;
+
+                // 이전 범위와 겹치는지 확인
+                if (begin >= lastEnd) {
+                    filtered.push(current);
+                    lastEnd = end; // 마지막 끝 위치 갱신
+                } else {
+                    // 겹치는 범위가 있으면, 그 범위의 begin을 lastEnd로 설정
+                    current.span.begin = lastEnd;
+                    filtered.push(current);
+                    lastEnd = current.span.end; // 갱신된 끝 위치
+                }
+            }
+
+            return filtered;
+        }
+
+        function highlight(data) {
+            const textContainer = document.getElementById("text"); // 하이라이트를 넣을 div
+            textContainer.innerHTML = ""; // 기존 내용을 초기화
+
+            data.forEach(entry => {
+                let text = entry.text;
+                let annotations = entry.annotations;
+
+                // 겹치는 범위 제거
+                annotations = removeOverlappingAnnotations(annotations);
+
+                // 정렬 (시작 위치 기준)
+                annotations.sort((a, b) => a.span.begin - b.span.begin);
+
+                let currentIndex = 0;
+                let highlightedText = document.createDocumentFragment(); // 문서 조각을 사용
+
+                annotations.forEach(annotation => {
+                    const { span, obj } = annotation;
+                    const { begin, end } = span;
+
+                    // 이전 텍스트 추가
+                    if (currentIndex < begin) {
+                        const textNode = document.createTextNode(text.slice(currentIndex, begin));
+                        highlightedText.appendChild(textNode);
+                    }
+
+                    // 하이라이트 추가
+                    const highlightClass = `${obj}`;
+                    const highlightSpan = document.createElement("span");
+                    highlightSpan.classList.add(highlightClass);
+                    highlightSpan.textContent = text.slice(begin, end);
+                    highlightedText.appendChild(highlightSpan);
+
+                    currentIndex = end; // 인덱스 갱신
+                });
+
+                // 남은 텍스트 추가
+                if (currentIndex < text.length) {
+                    const remainingText = document.createTextNode(text.slice(currentIndex));
+                    highlightedText.appendChild(remainingText);
+                }
+
+                textContainer.appendChild(highlightedText); // 결과 DOM 추가
+            });
+        }
+
+        //  업데이트
+        function update(pmid){
+
+            fetch(`/api/idivine/detail/${pmid}`)
+            .then(r=>r.json())
+            .then(response => {
+                const list = response
+                // console.log(list)
+                // annotations.prob 중 NaN 값 정수 0으로로 변환
+                const keywordInfo = response.keywordInfo.replace(/NaN/g,0);
+                // 받아온 값 keywordInfo 가 스트링이라 JSON 객체로 변환환
+                const parsKeywordInfo = JSON.parse(keywordInfo);
+                console.log(parsKeywordInfo[0])
+
+                const formattedData = JSON.stringify(
+                    {
+                        annotations: parsKeywordInfo[0].annotations,
+                        _id: parsKeywordInfo[0]._id,
+                        pmid: parsKeywordInfo[0].pmid,
+                        text: parsKeywordInfo[0].text,
+                        timestamp: parsKeywordInfo[0].timestamp,
+                    },
+                    null, // 인덴트 옵션
+                    4 // 4칸 들여쓰기
+                );
+                console.log(formattedData);
+
+                const updateContent = document.getElementById('updateContent');
+                const updateValue = document.getElementById('updateValue');
+                // highlight(parsKeywordInfo)
+                updateValue.value = formattedData;
+                updateContent.classList.remove('d-none');
+            })
+        }
+
+
+        // 리스트 클릭 시 pmid로 조회
+        document.getElementById('search_btn').addEventListener('click',()=>{
+            const searchType = document.getElementById("search_type").value;
+            const searchValue = document.getElementById("search_value").value;
+            list(searchType, searchValue);
+        })
+
+        // 상세보기 닫기
+        document.getElementById('close-btn').addEventListener('click', ()=>{
+            const searchContent = document.getElementById("content");
+            searchContent.classList.add('d-none');
+        })
+
+        // 
+        document.getElementById('search_value').addEventListener('keypress',()=>{
 
         })
 
-        function list(){
-            fetch(`/api/idivine/list`)
-            .then(r => r.json())
-            .then(response => {
-                console.log(response.data);
-            }) 
-        }
     </script>
 </body>
 </html>

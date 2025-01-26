@@ -1,0 +1,336 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org" lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/public/css/home.css">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
+    <title>I.DIVINE</title>
+</head>
+<style>
+    
+
+        
+        
+</style>
+<body>
+    
+    <div class="container-fluid">
+        <div th:replace="~{/navi/nav::topNav}"></div>
+        <div class="row">
+            <div class="col-8 mx-auto">
+                <div class="row pt-5 pb-1">
+                    <div class="col-auto fw-bold p-0 align-self-center fs-3">pmid</div>
+                    <div class="col-3  align-self-center ">
+                        <input id="pmid" type="text" class="form-control form-control-sm">
+                    </div>
+                    <div class="col-auto d-gird p-0  align-self-center ">
+                        <button onclick="deletePmid()" class="btn btn-dark btn-sm">DELETE</button>
+                    </div>
+                    <div class="col-auto ms-auto p-0  align-self-center ">
+                        <button onclick="insertOpne()" class="btn btn-sm btn-primary ms-auto px-3">ADD</button>
+                    </div>
+                </div>
+                <div class="row pb-3">
+                    <div class="col p-0 fs-0-8 text-danger">
+                        pmid 입력 후 delete 클릭 시 삭제
+                    </div>
+                </div>
+
+                <div id="insert_container"  class="row pb-3  d-none">
+                    <div class="col p-0">
+                        <div class="row">
+                            <div class="col">
+                                <div class="row py-1">
+                                    <div class="col-auto fw-bold fs-3">
+                                        KeywordInfo
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col-auto me-auto fs-0-8 text-secondary align-self-center">
+                                        신규 등록은 데이터 입력 후 save 버튼 클릭
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="col">
+                                        <textarea id="keywordInfo" class="form-control" name="pmid" rows="15"></textarea>
+                                    </div>
+                                </div>
+                                <div class="row mt-2">
+                                    <div class="col-auto ms-auto">
+                                        <button onclick="insertKeywordInfo()" class="btn btn-sm btn-primary px-3">SAVE</button>
+                                        <button onclick="insertClose()" class="btn btn-sm btn-outline-dark px-3">CLOSE</button>
+                                        
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content" class="row d-none pb-3">
+                    <div class="col p-0">
+                        <div class="row py-1">
+                            <div class="col fw-bold fs-3">UPDATE</div>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto me-auto fs-0-8 text-secondary align-self-center">
+                                데이터 수정 후 update 클릭
+                            </div>
+                        </div>
+                        <div class="row">
+                            <div class="col">
+                                <textarea id="text" class="form-control" rows="15"></textarea>
+                            </div>
+                        </div>
+                        <div class="row mt-2">
+                            <div class="col-auto ms-auto">
+                                <button onclick="updateProcess()" class="btn btn-primary btn-sm px-3">UPDATE</button>
+                                <button onclick="updateClose()" class="btn btn-outline-dark btn-sm px-3">CLOSE</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="row py-3">
+                    <div class="col">
+                        <div class="row bg-body-secondary py-2 border-2 border-dark border-bottom text-center fw-bold">
+                            <div class="col-1">pmid</div>
+                            <div class="col-7">text</div>
+                            <div class="col">annotations</div>
+                            <div class="col">timestamp</div>
+                            <div class="col">update</div>
+                        </div>
+                        <div class="row">
+                            <div id="search_content" class="col fs-0-9 text-center">
+                                <div class="row">
+                                    <div class="col"></div>
+                                    <div class="col-8"></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                    <div class="col"></div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+            </div>
+        </div>
+        
+    
+        
+    </div>
+    <script src="/public/js/home.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
+    <script>
+        
+        window.addEventListener('DOMContentLoaded', ()=>{
+            document.getElementById('manager').classList.add("active");
+            list(); 
+        })
+        
+        // 리스트 조회
+        function list(searchType, searchValue){
+            fetch(`/api/idivine/list?searchType=${searchType}&searchValue=${searchValue}`)
+            .then(r => r.json())
+            .then(response => {
+                const searchContent = document.getElementById("search_content");
+                searchContent.innerHTML = '';
+                const list = response;
+                list.forEach(item => {
+                    // 리스트 keywordInfo 안에 NaN값 정수 0으로 변환
+                    const keywordInfo = item.keywordInfo.replace(/NaN/g,0);
+                    const parsKeywordInfo = JSON.parse(keywordInfo);
+                    const firstKeyword = parsKeywordInfo[0];
+                    const date = new Date(firstKeyword.timestamp); 
+                    // console.log (item.pmid);
+
+                    const row = document.createElement('div');
+                    row.className = 'row py-2 border-bottom st';
+                    
+                    // const checkboxCol = document.createElement('div');
+                    // checkboxCol.className = 'col-auto';
+
+                    const tdPmid = document.createElement('div');
+                    tdPmid.innerText = firstKeyword.pmid;
+                    tdPmid.className = 'col-1 text-start align-self-center';
+                    
+                    const tdText = document.createElement('div');
+                    tdText.innerText = firstKeyword.text.slice(0, firstKeyword.text.indexOf('.') + 1);
+                    tdText.className = 'col-7 text-truncate text-start align-self-center';
+                    
+                    const tdAnnotations = document.createElement('div');
+                    tdAnnotations.innerText = firstKeyword.annotations.length + ' annotations';
+                    tdAnnotations.className = 'col align-self-center';
+                    
+                    const tdTimestamp = document.createElement('div');
+                    tdTimestamp.innerText = formatDate(date);
+                    tdTimestamp.className = 'col align-self-center';
+                    
+                    const update = document.createElement('div');
+                    update.className = 'col align-self-center'
+
+                    const updateBtn = document.createElement('button');
+                    updateBtn.className = 'btn btn-primary btn-sm';
+                    updateBtn.setAttribute('onclick', `update(${item.pmid})`)
+                    updateBtn.innerText = 'update'
+                    update.appendChild(updateBtn);
+
+                    row.appendChild(tdPmid);
+                    row.appendChild(tdText);
+                    row.appendChild(tdAnnotations);
+                    row.appendChild(tdTimestamp);
+                    row.appendChild(update)
+
+                    searchContent.appendChild(row);
+                });
+            })
+        }
+        
+
+
+        // 추가하기
+        function insertKeywordInfo(){
+            const keywordInfo = document.getElementById("keywordInfo");
+            if(keywordInfo.value ==''){
+                return alert('Please enter your data');
+            }
+            const parsKeywordInfo = JSON.parse(keywordInfo.value)
+            const pmid = parsKeywordInfo[0].pmid
+
+            if(!pmid || pmid == 0){
+                return alert("please check pmid")
+            }
+            // console.log(parsKeywordInfo)
+            // 데이터 분리해서 전송할 객체 생성 pmid 분리
+            const data = {
+                "pmid": pmid,
+                "keywordInfo": keywordInfo.value // 원본 JSON 데이터 그대로
+            };
+            console.log(data)
+            fetch(`/api/idivine/insert`,{
+                method:"POST",
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            .then(r=>r.json())
+            .then(response=>{
+                // keywordInfo;
+                keywordInfo.value='';
+                list();
+                insertClose();
+                alert(response.result)
+            })
+        }
+
+        // 삭제하기
+        function deletePmid(){
+            const pmidValue = document.getElementById('pmid');
+            // 숫자만 입력 가능하도록 확인
+            if (!pmidValue.value || isNaN(pmidValue.value)) {
+                return alert("숫자만 입력 가능합니다."); 
+            }
+
+            fetch(`/api/idivine/delete/${pmidValue.value}`,{
+                method:"DELETE"
+            })
+            .then(r => r.json())
+            .then(response => {
+                pmidValue.value = '';
+                alert("delete success");
+                list();
+            })
+        }
+        
+        // pmid 셋팅
+        let setpmid = "";
+        //  업데이트
+        function update(pmid){
+            fetch(`/api/idivine/detail/${pmid}`)
+            .then(r=>r.json())
+            .then(response => {
+                const list = response
+                // console.log(list)
+                // annotations.prob 중 NaN 값 정수 0으로로 변환
+                const keywordInfo = response.keywordInfo.replace(/NaN/g,0);
+                // 받아온 값 keywordInfo 가 스트링이라 JSON 객체로 변환환
+                const parsKeywordInfo = JSON.parse(keywordInfo);
+                setpmid = parsKeywordInfo[0].pmid;
+                console.log(parsKeywordInfo[0])
+
+                const formattedData = JSON.stringify(
+                    {
+                        _id: parsKeywordInfo[0]._id,
+                        pmid: parsKeywordInfo[0].pmid,
+                        text: parsKeywordInfo[0].text,
+                        annotations: parsKeywordInfo[0].annotations,
+                        timestamp: parsKeywordInfo[0].timestamp,
+                    },
+                    null, // 인덴트 옵션
+                    4 // 4칸 들여쓰기
+                );
+
+                const content = document.getElementById('content');
+                const text = document.getElementById('text');
+                // highlight(parsKeywordInfo)
+                text.value = formattedData;
+                updateOpen();
+                insertClose();
+            })
+        }
+
+        // 업데이트 프로세스
+        function updateProcess(){
+            const keywordInfo = document.getElementById('text');
+            // console.log(keywordInfo.value);
+            const textvalue = '['+keywordInfo.value+']';
+            // console.log(jsonFormat);
+
+            const data ={
+                "pmid" : setpmid,
+                "keywordInfo" : textvalue
+            }
+            console.log(data)
+            fetch(`/api/idivine/update`,{
+                method:"PUT",
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                body:JSON.stringify(data)
+            })
+            .then(r=>r.json())
+            .then(response=>{
+                keywordInfo.value = '';
+                updateClose();
+                insertClose();
+                list();
+            })
+
+        }
+        
+        // 추가 
+        const insertContainerTag = document.getElementById('insert_container');
+        const updateContainerTag = document.getElementById('content');
+        function insertOpne(){
+            insertContainerTag.classList.remove('d-none');
+            updateClose()
+        }
+
+        function insertClose(){
+            insertContainerTag.classList.add('d-none');
+        }
+        
+        function updateOpen(){
+            updateContainerTag.classList.remove('d-none');   
+        }
+
+        function updateClose(){
+            updateContainerTag.classList.add('d-none');   
+        }
+
+    </script>
+</body>
+</html>

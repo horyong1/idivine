@@ -1,18 +1,53 @@
 <?xml version="1.0" encoding="UTF-8" ?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
 <mapper namespace="com.lhr.idivine.mapper.IdivineMapper">
-    <!-- 리스트 -->
+    <!-- 리스트 조회-->
     <select id="findyAll" resultType="com.lhr.idivine.dto.PmidKeywordsDto">
-        SELECT  pmid as pmid,
-                keyword_info as keywordInfo
-        FROM    pmid_keywords
+        SELECT  pk.pmid as pmid,
+                pk.keyword_info as keywordInfo
+        FROM    pmid_keywords pk
+        ORDER BY pk.pmid DESC
     </select>
-
+    <!-- pmid로 리스트 조회 -->
+    <select id="findByPmidList" resultType="com.lhr.idivine.dto.PmidKeywordsDto">
+        SELECT  pk.pmid as pmid,
+                pk.keyword_info as keywordInfo
+        FROM    pmid_keywords pk
+        WHERE   pk.pmid LIKE  '%' || #{pmid} || '%'
+        ORDER BY pk.pmid DESC
+    </select>
+    <!-- text 내용으로 keyword_info 조회 -->
+    <select id="findyByTextList" resultType="com.lhr.idivine.dto.PmidKeywordsDto">
+        SELECT  pk.pmid as pmid,
+                pk.keyword_info as keywordInfo
+        FROM    pmid_keywords pk
+        WHERE   pk.keyword_info LIKE  '%' || #{searchValue} || '%'
+        ORDER BY pk.pmid DESC
+    </select>
+    
     <!-- pmid id 로 정보 찾기 -->
     <select id="findByPmid" resultType="com.lhr.idivine.dto.PmidKeywordsDto">
-        SELECT  pmid as pmid,
-                keyword_info as keywordInfo
-        FROM    pmid_keywords
-        WHERE   pmid = #{pmid}
+        SELECT  pk.pmid as pmid,
+                pk.keyword_info as keywordInfo
+        FROM    pmid_keywords pk
+        WHERE   pk.pmid = #{pmid}
     </select>
+
+    <!-- 생성 -->
+    <insert id="create">
+        INSERT INTO pmid_keywords (pmid, keyword_info)
+        VALUES (#{pmid}, #{keywordInfo})
+    </insert>
+
+    <!-- 삭제 -->
+    <delete id="remove">
+        DELETE FROM pmid_keywords
+        WHERE pmid = #{pmid}
+    </delete>
+
+    <update id="update">
+        UPDATE  pmid_keywords 
+        SET     keyword_info = #{keywordInfo}
+        WHERE   pmid = #{pmid}
+    </update>
 </mapper>

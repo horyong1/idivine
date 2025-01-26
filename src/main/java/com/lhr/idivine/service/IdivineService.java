@@ -12,7 +12,15 @@ public class IdivineService {
     private IdivineMapper idivineMapper;
 
     // 리스트 조회
-    public List<PmidKeywordsDto> findyAll(){
+    public List<PmidKeywordsDto> findyAll(String searchType, String searchValue){
+        if(searchType.equals("pmid")){
+          return idivineMapper.findByPmidList(searchValue);
+        }
+
+        if(searchType.equals("text")){
+          return idivineMapper.findyByTextList(searchValue);
+        }
+
         return idivineMapper.findyAll();
     };
 
@@ -20,6 +28,21 @@ public class IdivineService {
     public PmidKeywordsDto findByPmid(int pmid){
         return idivineMapper.findByPmid(pmid);
 
+    }
+
+    // keywordInfo 추가
+    public void create(int pmid, String keywordInfo){
+      idivineMapper.create(pmid, keywordInfo);
+    }
+
+    // keywordInfo 삭제
+    public void remove(int pmid){
+      idivineMapper.remove(pmid);
+    }
+
+    public void update(int pmid, String keywordInfo){
+      System.out.println("넘어간거야??");
+      idivineMapper.update(pmid, keywordInfo);
     }
 
 }
