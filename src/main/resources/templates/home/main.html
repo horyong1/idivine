@@ -30,33 +30,128 @@
         
                     </div>
                 </div>
-
-                <div class="row d-none" id="content">
-                    <div class="col">
-                        <div class="row pb-2">
-                            <div class="col p-0 fw-bold fs-3">DETAIL</div>
+                <div id="updateContent" class="row d-none">
+                    
+                    <div class="col-3 border rounded-2">
+                        <div class="row py-3">
+                            <div class="col fw-bold fs-4">Annotation 추가</div>
                         </div>
-                        <div  class="row">
-                            <div class="col border rounded-3 pb-3">
+                        <div class="row pb-2">
+                            <div class="col">
+                                <label for="mention fw-bold">mention</label>
+                                <input class="form-control form-control-sm" type="text" id="mention" name="mention">
+                            </div>
+                        </div>
+                        <div class="row pb-2">
+                            <div class="col">
+                                <label for="obj">obj</label>
+                                <input class="form-control form-control-sm" type="text" id="obj" name="obj">
+                            </div>
+                        </div>
+                        <div class="row pb-2">
+                            <div class="col">
                                 <div class="row">
-                                    <div id="close-btn" class="col-auto ms-auto fw-bold py-2 border-start border-bottom rounded-3 bg-body-secondary" style="cursor: pointer;">
-                                        <i class="bi bi-x-lg"></i>
+                                    <div class="col">span</div>
+                                </div>
+                                <div class="row ">
+                                    <div class="col">
+                                        <input class="form-control form-control-sm" type="text" id="begin" name="begin" placeholder="begin">
+                                    </div>
+                                    <div class="col">
+                                        <input class="form-control form-control-sm" type="text" id="end" name="end" placeholder="end">
                                     </div>
                                 </div>
-                                <div class="row">
-        
+                            </div>
+                        </div>
+                        <div class="row py-2">
+                            <div class="col d-grid">
+                                <button onclick="annotationRegister()" class="btn btn-dark btn-sm">신규등록</button>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="col-auto px-2"></div>
+                    <div class="col border rounded-2 position-relative">
+                        <div id="updateCloseBtn" class="position-absolute end-0 px-3 py-2" style="cursor: pointer;">
+                            <i class="bi bi-x-lg"></i>
+                        </div>
+                        <div class="row">
+                            <div class="col-auto px-2"></div>
+                            <div class="col-5">
+                                <div class="row py-3">
+                                    <div class="col p-0 fw-bold fs-4">
+                                        Annotation 목록
+                                    </div>
                                 </div>
-                                <div class="row">
-                                    <div id="text" class="col"></div>
+                                <div class="row pb-2">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col p-0">mention</div>
+                                        </div>
+                                        <div id="updateAnnotationList" class="row overflow-auto border rounded-2" style="height: 200px;">
+                                            <div class="col"></div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-6 ms-auto">
+                                <div class="row py-3">
+                                    <div class="col fw-bold fs-4">Annotation 삭제</div>
+                                </div>
+                                <div class="row pb-2">
+                                    <div class="col">
+                                        <label for="mention fw-bold">mention</label>
+                                        <input class="form-control form-control-sm" type="text" id="updateMention" name="updateMention" disabled>
+                                    </div>
+                                </div>
+                                <div class="row pb-2">
+                                    <div class="col">
+                                        <label for="obj">obj</label>
+                                        <input class="form-control form-control-sm" type="text" id="updateObj" name="updateObj" disabled>
+                                    </div>
+                                </div>
+                                <div class="row pb-2">
+                                    <div class="col">
+                                        <div class="row">
+                                            <div class="col">span</div>
+                                        </div>
+                                        <div class="row">
+                                            <div class="col">
+                                                <input class="form-control form-control-sm" type="text" id="updateBegin" name="updateBegin" disabled>
+                                            </div>
+                                            <div class="col">
+                                                <input class="form-control form-control-sm" type="text" id="updateEnd" name="updateEnd" disabled>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="row py-2">
+                                    <div class="col d-grid">
+                                        <button id="annotationDeleteBtn" class="btn btn-outline-dark btn-sm">삭제</button>
+                                    </div>
                                 </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <div id="updateContent" class="row d-none">
+                <div class="row pt-3 d-none" id="content">
                     <div class="col">
-                        <textarea class="form-control form-control-sm" rows="10" name="updateValue" id="updateValue"></textarea>
+                        <div  class="row">
+                            <div class="col border rounded-3 pb-3">
+                                <div class="row">
+                                    <div class="col mt-2 fw-bold fs-3">DETAIL</div>
+                                    <div id="close-btn" class="col-auto ms-auto fw-bold py-2 me-1" style="cursor: pointer;">
+                                        <i class="bi bi-x-lg"></i>
+                                    </div>
+                                </div>
+                                <div class="row">
+        
+                                </div>
+                                <div class="row pt-2">
+                                    <div id="text" class="col"></div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
 
@@ -88,7 +183,21 @@
     <script src="/public/js/home.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>  
     <script>
+        // keywordInfo 초기화
+        let annotationList = null;
+        let pmid = null;
+        let text = null;
+        let timestamp = null;
+        let _id = null;
         
+        // annotations 초기화
+        let id =[];
+        let is_neural_normalized = '';
+        let mention = '';
+        let obj = '';
+        let prob = null;
+        let span = [];
+
         window.addEventListener('DOMContentLoaded', ()=>{
             document.getElementById('finder').classList.add("active");
             const searchType = document.getElementById("search_type").value;
@@ -104,26 +213,31 @@
                 const searchContent = document.getElementById("search_content");
                 searchContent.innerHTML = '';
                 const list = response;
+
+                // 리스트 생성
                 list.forEach(item => {
                     // 리스트 keywordInfo 안에 NaN값 정수 0으로 변환
                     const keywordInfo = item.keywordInfo.replace(/NaN/g,0);
+                    // String 으로 받아온 json 객체 역직렬화 
                     const parsKeywordInfo = JSON.parse(keywordInfo);
                     const firstKeyword = parsKeywordInfo[0];
                     const date = new Date(firstKeyword.timestamp); 
 
                     // 여기부터터 리스트 createElement로 생성
                     const row = document.createElement('div');
-                    row.setAttribute('onclick', `detail(${firstKeyword.pmid})`)
+                    // row.setAttribute('onclick', `detail(${firstKeyword.pmid})`)
                     row.className = 'row py-2 border-bottom st';
                     
                     const tdPmid = document.createElement('div');
-                    tdPmid.innerText = firstKeyword.pmid;
+                    tdPmid.innerText = item.pmid;
                     tdPmid.className = 'col-1 text-start align-self-center';
                     
                     const tdText = document.createElement('div');
                     // text 첫번째 . 찾아서 앞 문장만 출력
                     tdText.innerText = firstKeyword.text.slice(0, firstKeyword.text.indexOf('.') + 1);
-                    tdText.className = 'col-7 text-truncate text-start align-self-center';
+                    tdText.className = 'col-7 text-truncate text-start align-self-center text_underline';
+                    tdText.setAttribute('onclick', `detailSet(${item.pmid})`)
+                    
                     
                     const tdAnnotations = document.createElement('div');
                     tdAnnotations.innerText = firstKeyword.annotations.length + ' annotations';
@@ -136,8 +250,8 @@
                     const update = document.createElement('div');
                     update.className = 'col align-self-center'
                     const updateBtn = document.createElement('button');
-                    updateBtn.className = 'btn btn-primary btn-sm';
-                    updateBtn.setAttribute('onclick', `update(${item.pmid})`)
+                    updateBtn.className = 'btn btn-outline-dark btn-sm';
+                    updateBtn.setAttribute('onclick', `annodateUpdate(${item.pmid})`)
                     updateBtn.innerText = 'update'
                     update.appendChild(updateBtn);
                     
@@ -152,135 +266,316 @@
             })
         }
         
-        //  상세보기
-        function detail(pmid){
- 
-            fetch(`/api/idivine/detail/${pmid}`)
-            .then(r=>r.json())
-            .then(response => {
-                const list = response
-                
-                // annotations.prob 중 NaN 값 오류로 모든 NaN값 정수 0으로로 변환
-                const keywordInfo = response.keywordInfo.replace(/NaN/g, 0);
-                const parsKeywordInfo = JSON.parse(keywordInfo);
-                console.log(parsKeywordInfo)
+        //  상세 내용 조회 ajax
+        async function detail(id){
+            const r = await fetch(`/api/idivine/detail/${id}`)
+            const response = await r.json();
 
+            // annotations.prob 중 NaN 값 오류로 모든 NaN값 정수 0으로로 변환
+            const keywordInfo = response.keywordInfo.replace(/NaN/g, 0);
+            // 역직렬화 
+            const parsKeywordInfo = JSON.parse(keywordInfo);
+            console.log(parsKeywordInfo)
 
-
-                const content = document.getElementById('content');
-                const text = document.getElementById('text');
-                // 하이라이트 함수 실행
-                highlight(parsKeywordInfo)
-                content.classList.remove('d-none');
-            })
+            return parsKeywordInfo;
         }
 
+        // 상세 내용 셋팅
+        async function detailSet(id){
+            const parsKeywordInfo = await detail(id);   // 상세 내용 조회 
+            const content = document.getElementById('content'); 
+            const text = document.getElementById('text');
+            // 하이라이트 함수 실행
+            highlight(parsKeywordInfo)
+            content.classList.remove('d-none');
+        }
+
+        // 상세보기 하이라이트 설정
+        function highlight(data) {
+            const textContainer = document.getElementById("text");
+            textContainer.innerHTML = ""; 
+
+            // 하이라이트 작업을 진행
+            data.forEach(entry => {
+                let text = entry.text; // 텍스트 내용
+                let annotations = entry.annotations; // 주석 (하이라이트 정보)
+
+                // 시작 위치를 기준으로 주석을 정렬
+                annotations.sort((a, b) => a.span.begin - b.span.begin); // 주석들을 시작 위치 기준으로 오름차순 정렬
+                
+                // 겹치는 범위가 있으면 제거
+                annotations = removeOverlappingAnnotations(annotations);
+
+                // 하이라이트를 추가할 텍스트를 준비하기 위해 초기화
+                let currentIndex = 0; // 현재까지 처리된 텍스트의 끝 위치
+                let highlightedText = document.createDocumentFragment(); // 문서 조각을 사용 (실제 DOM에 삽입하기 전에 메모리에서 처리)
+
+                // 텍스트에 하이라이트를 추가
+                annotations.forEach(annotation => {
+                    const { span, obj } = annotation; 
+                    const { begin, end } = span; 
+
+                    // 주석의 시작 이전 텍스트를 먼저 추가
+                    if (currentIndex < begin) {
+                        const textNode = document.createTextNode(text.slice(currentIndex, begin)); // 시작 전 텍스트
+                        highlightedText.appendChild(textNode); // 텍스트 노드를 문서 조각에 추가
+                    }
+
+                    //  하이라이트 텍스트를 생성하여 추가
+                    const highlightClass = `${obj}`; // 하이라이트에 적용할 클래스 (주석의 obj를 클래스명으로 사용)
+                    const highlightSpan = document.createElement("span"); 
+                    highlightSpan.classList.add(highlightClass); 
+                    highlightSpan.textContent = text.slice(begin, end); // 하이라이트할 텍스트를 span에 삽입
+                    highlightedText.appendChild(highlightSpan); // 하이라이트된 텍스트를 문서 조각에 추가
+
+                    currentIndex = end; // 현재 인덱스를 끝 위치로 갱신
+                });
+
+                // 하이라이트 이후의 남은 텍스트를 추가
+                if (currentIndex < text.length) {
+                    const remainingText = document.createTextNode(text.slice(currentIndex)); // 남은 텍스트
+                    highlightedText.appendChild(remainingText); // 남은 텍스트를 문서 조각에 추가
+                }
+
+                // 하이라이트 텍스트를 실제 DOM에 추가
+                textContainer.appendChild(highlightedText); // 문서 조각에 추가된 모든 내용을 실제 DOM에 추가
+            });
+        }
+
+        
+        // 겹치는 범위 재설정
         function removeOverlappingAnnotations(annotations) {
-            // 시작 위치 기준으로 정렬
-            annotations.sort((a, b) => a.span.begin - b.span.begin);
-
             const filtered = [];
-            let lastEnd = -1; // 마지막 끝 위치를 추적
+            let lastEnd = -1;
 
-            for (let i = 0; i < annotations.length; i++) {
-                const current = annotations[i];
+            annotations.forEach(current => {
                 const { begin, end } = current.span;
 
                 // 이전 범위와 겹치는지 확인
                 if (begin >= lastEnd) {
-                    filtered.push(current);
+                    filtered.push(current); // 겹치지 않으면 필터링된 배열에 추가
                     lastEnd = end; // 마지막 끝 위치 갱신
                 } else {
                     // 겹치는 범위가 있으면, 그 범위의 begin을 lastEnd로 설정
                     current.span.begin = lastEnd;
-                    filtered.push(current);
+                    filtered.push(current); // 갱신된 주석을 필터링된 배열에 추가
                     lastEnd = current.span.end; // 갱신된 끝 위치
                 }
-            }
+            });
 
             return filtered;
         }
 
-        function highlight(data) {
-            const textContainer = document.getElementById("text"); // 하이라이트를 넣을 div
-            textContainer.innerHTML = ""; // 기존 내용을 초기화
+        const updateMention = document.getElementById('updateMention');
+        const updateObj = document.getElementById('updateObj');
+        const updateBegin = document.getElementById('updateBegin');
+        const updateEnd = document.getElementById('updateEnd');
+        const annotationDeleteBtn = document.getElementById('annotationDeleteBtn');
 
-            data.forEach(entry => {
-                let text = entry.text;
-                let annotations = entry.annotations;
+        // 어노테이션 리스트 셋팅
+        async function annodateUpdate(id){
+            await KeywordInfoDataSet(id);
+            const updateContent = document.getElementById('updateContent');
+            const updateAnnotationList = document.getElementById('updateAnnotationList');
+            const annotationCol = document.createElement('div');
+            
+            annotationCol.className = 'col';
+            updateAnnotationList.innerHTML = "";
 
-                // 겹치는 범위 제거
-                annotations = removeOverlappingAnnotations(annotations);
+            // 어노테이션 리스트 셋팅
+            annotationList.forEach((item, index) => {
+                
+                const row = document.createElement('div');
+                row.className = 'row st text_underline';
+                row.setAttribute('onclick', `annotationDetail(${index})`)
+                
+                const annotationValue = document.createElement('div');
+                annotationValue.className = 'col border-bottom py-1';
+                annotationValue.innerText = index +' '+ item.mention;
+                
+                row.appendChild(annotationValue);
+    
+                annotationCol.appendChild(row);
+            })
+            
+            updateAnnotationList.appendChild(annotationCol);
 
-                // 정렬 (시작 위치 기준)
-                annotations.sort((a, b) => a.span.begin - b.span.begin);
+            // value값  초기화
+            updateMention.value = '';
+            updateObj.value = '';
+            updateBegin.value = '';
+            updateEnd.value = '';
 
-                let currentIndex = 0;
-                let highlightedText = document.createDocumentFragment(); // 문서 조각을 사용
+            updateContent.classList.remove('d-none');
+            
 
-                annotations.forEach(annotation => {
-                    const { span, obj } = annotation;
-                    const { begin, end } = span;
-
-                    // 이전 텍스트 추가
-                    if (currentIndex < begin) {
-                        const textNode = document.createTextNode(text.slice(currentIndex, begin));
-                        highlightedText.appendChild(textNode);
-                    }
-
-                    // 하이라이트 추가
-                    const highlightClass = `${obj}`;
-                    const highlightSpan = document.createElement("span");
-                    highlightSpan.classList.add(highlightClass);
-                    highlightSpan.textContent = text.slice(begin, end);
-                    highlightedText.appendChild(highlightSpan);
-
-                    currentIndex = end; // 인덱스 갱신
-                });
-
-                // 남은 텍스트 추가
-                if (currentIndex < text.length) {
-                    const remainingText = document.createTextNode(text.slice(currentIndex));
-                    highlightedText.appendChild(remainingText);
-                }
-
-                textContainer.appendChild(highlightedText); // 결과 DOM 추가
-            });
         }
 
-        //  업데이트
-        function update(pmid){
 
-            fetch(`/api/idivine/detail/${pmid}`)
+        //  선택한 어노테이션 값 셋팅
+        function annotationDetail(index){
+            annotationDetailSet(index);
+
+            updateMention.value = mention;
+            updateObj.value = obj;
+            updateBegin.value = span.begin;
+            updateEnd.value = span.end;
+            annotationDeleteBtn.setAttribute('onclick', `annotationDelete(${index})`)
+        }
+
+        //  새 어노테이션 값 추가 
+        function annotationRegister(){
+            const regMention = document.getElementById('mention');
+            const regObj = document.getElementById('obj');
+            const regBegin = document.getElementById('begin');
+            const regEnd = document.getElementById('end');
+
+            // 유효성 검사
+            if(regMention.value == ''){
+                return alert('mention 값을 입력하세요');
+            }
+            if(regObj.value == ''){
+                return alert('obj 값을 입력하세요');
+            }
+            if(regBegin.value == ''){
+                return alert('begin 값을 입력하세요');
+            }
+            if(regEnd.value == ''){
+                return alert('end 값을 입력하세요');
+            }
+
+            // annotation 형식 세팅
+            const newAnnotation = {
+                "id" : [],
+                "is_neural_normalized": false,
+                "mention" : regMention.value,
+                "obj" : regObj.value,
+                "prob" : 0,
+                "span" : {
+                    "begin" : parseInt(regBegin.value, 10),
+                    "end" : parseInt(regEnd.value, 10),
+                }
+            }
+            // annotationList에 새로운 annotation 값 추가
+            annotationList.push(newAnnotation);
+
+            // keyword_info 형식 세팅
+            const updateKeywordInfo = [{
+                "annotations" : annotationList,
+                "pmid" : pmid,
+                "text" : text,
+                "timestamp" : timestamp,
+                "_id" : _id
+            }];
+            // String 타입으로 받기위해 직렬화 
+            const processedData = JSON.stringify(updateKeywordInfo);
+
+            // 데이터 베이스 값과 같은 형식으로 셋팅
+            const newData = {
+                "pmid" : pmid,
+                "keywordInfo" : processedData
+            }
+
+            // 업데이트 요청
+            fetch(`/api/idivine/update`,{
+                method:"PUT",
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                body:JSON.stringify(newData)
+            })
             .then(r=>r.json())
             .then(response => {
-                const list = response
-                // console.log(list)
-                // annotations.prob 중 NaN 값 정수 0으로로 변환
-                const keywordInfo = response.keywordInfo.replace(/NaN/g,0);
-                // 받아온 값 keywordInfo 가 스트링이라 JSON 객체로 변환환
-                const parsKeywordInfo = JSON.parse(keywordInfo);
-                console.log(parsKeywordInfo[0])
+                const annotationContainer = document.getElementById('updateContent');
+                annotationContainer.classList.add('d-none');
 
-                const formattedData = JSON.stringify(
-                    {
-                        annotations: parsKeywordInfo[0].annotations,
-                        _id: parsKeywordInfo[0]._id,
-                        pmid: parsKeywordInfo[0].pmid,
-                        text: parsKeywordInfo[0].text,
-                        timestamp: parsKeywordInfo[0].timestamp,
-                    },
-                    null, // 인덴트 옵션
-                    4 // 4칸 들여쓰기
-                );
-                console.log(formattedData);
+                alert("추가 완료");
 
-                const updateContent = document.getElementById('updateContent');
-                const updateValue = document.getElementById('updateValue');
-                // highlight(parsKeywordInfo)
-                updateValue.value = formattedData;
-                updateContent.classList.remove('d-none');
+                regMention.value = '';
+                regObj.value = '';
+                regBegin.value = '';
+                regEnd.value = '';
+
+                list();
+                
             })
+        }
+
+        // 삭제 
+        function annotationDelete(no){
+            // 
+            annotationList.splice(no, 1);
+
+
+            // keyword_info 형식 세팅
+            const updateKeywordInfo = [{
+                "annotations" : annotationList,
+                "pmid" : pmid,
+                "text" : text,
+                "timestamp" : timestamp,
+                "_id" : _id
+            }];
+            console.log(updateKeywordInfo)
+            
+            const processedData = JSON.stringify(updateKeywordInfo);
+
+            const newData = {
+                "pmid" : pmid,
+                "keywordInfo" : processedData
+            }
+
+            fetch(`/api/idivine/update`,{
+                method:"PUT",
+                headers:{
+                    "Content-Type" : "application/json"
+                },
+                body:JSON.stringify(newData)
+            })
+            .then(r=>r.json())
+            .then(response => {
+                const annotationContainer = document.getElementById('updateContent');
+                annotationContainer.classList.add('d-none');
+                alert("삭제 완료");
+                list();
+                
+            })
+        }
+
+
+
+
+        // 데이터 셋팅
+        async function KeywordInfoDataSet(id){
+            const list = await detail(id);
+            // keywordInfo 데이터 셋팅
+            annotationList = list[0].annotations;
+            pmid = list[0].pmid;
+            text = list[0].text;
+            timestamp = list[0].timestamp;
+            _id = list[0]._id;
+
+            console.log(annotationList);
+            console.log(pmid);
+            console.log(text);
+            console.log(timestamp);
+            console.log(_id);
+        }
+
+        // 어노테이션 목록 클릭 시 상세 내용 셋팅
+        function annotationDetailSet(index){
+            console.log(annotationList);
+            id = annotationList[index].id;
+            is_neural_normalized = annotationList[index].is_neural_normalized;
+            mention = annotationList[index].mention;
+            obj = annotationList[index].obj;
+            prob = annotationList[index].prob;
+            span = annotationList[index].span;
+            console.log(id);
+            console.log(is_neural_normalized);
+            console.log(mention);
+            console.log(obj);
+            console.log(prob);
+            console.log(span);
         }
 
 
@@ -298,8 +593,9 @@
         })
 
         // 
-        document.getElementById('search_value').addEventListener('keypress',()=>{
-
+        document.getElementById('updateCloseBtn').addEventListener('click',()=>{
+            const annotationContainer = document.getElementById('updateContent');
+            annotationContainer.classList.add('d-none');
         })
 
     </script>

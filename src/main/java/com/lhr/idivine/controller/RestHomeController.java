@@ -62,32 +62,56 @@ public class RestHomeController {
         // 받아온 String 값 엔터 공백 값 제거 (그대로 넣으면 가져올때 json 타입 오류)
         String compressedJson = compressedJson(params);
   
-        idivineService.create(params.getPmid(),compressedJson);
-        responseDto.setResult("Register success");
+        int result = idivineService.create(params.getPmid(),compressedJson);
+        responseDto.setResult(processResult(result,"저장"));
+
         return ResponseEntity.ok(responseDto);
-    }
+    }   
     
+    /**
+     * 삭제
+     * @param pmid
+     * @return
+     */
     @DeleteMapping("delete/{pmid}")
     public ResponseEntity<RestResponseDto> delete(@PathVariable("pmid") int pmid){
         RestResponseDto responseDto = new RestResponseDto();
-        idivineService.remove(pmid);
-        responseDto.setResult("Delete success");
+
+        int result = idivineService.remove(pmid);
+        responseDto.setResult(processResult(result,"삭제"));
+
         return ResponseEntity.ok(responseDto);
     }
 
+    /**
+     * 업데이트 
+     * @param params
+     * @return
+     */
     @PutMapping("update")
     public ResponseEntity<RestResponseDto> update(@RequestBody PmidKeywordsDto params) {
         RestResponseDto responseDto = new RestResponseDto();
-        System.out.println(compressedJson(params));
         String keywordInfo = compressedJson(params);
     
-        idivineService.update(params.getPmid(), keywordInfo);
-        responseDto.setResult("Update success"); 
+        int result = idivineService.update(params.getPmid(), keywordInfo);
+        responseDto.setResult(processResult(result,"업데이트"));
+
         return ResponseEntity.ok(responseDto);
     }
 
+    
+    // 받아온 데이터 값 공백문자 제거
     private String compressedJson(PmidKeywordsDto params){
         return params.getKeywordInfo().replaceAll("\\r\\n|\\r|\\n", "");
-        
+    }
+
+    // 쿼리 등록,삭제,수정 확인 
+    private String processResult(int result, String message  ){
+        if(result > 0){
+            return message + " 성공"; 
+            
+        }else{
+            return message + " 실패"; 
+        }
     }
 }

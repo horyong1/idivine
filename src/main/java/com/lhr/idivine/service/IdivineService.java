@@ -27,22 +27,21 @@ public class IdivineService {
     // pmid로 단건 조회
     public PmidKeywordsDto findByPmid(int pmid){
         return idivineMapper.findByPmid(pmid);
-
     }
 
     // keywordInfo 추가
-    public void create(int pmid, String keywordInfo){
-      idivineMapper.create(pmid, keywordInfo);
+    public int create(int pmid, String keywordInfo){
+      return idivineMapper.create(pmid, keywordInfo);
     }
 
     // keywordInfo 삭제
-    public void remove(int pmid){
-      idivineMapper.remove(pmid);
+    public int remove(int pmid){
+      return idivineMapper.remove(pmid);
     }
 
-    public void update(int pmid, String keywordInfo){
-      System.out.println("넘어간거야??");
-      idivineMapper.update(pmid, keywordInfo);
+    // keywordInfo 업데이트
+    public int update(int pmid, String keywordInfo){
+      return idivineMapper.update(pmid, keywordInfo);
     }
 
 }

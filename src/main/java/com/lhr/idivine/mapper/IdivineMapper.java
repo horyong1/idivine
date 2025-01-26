@@ -24,11 +24,11 @@ public interface IdivineMapper {
     PmidKeywordsDto findByPmid(int pmid);
     
     // 생성
-    void create(@Param("pmid") int pmid, @Param("keywordInfo") String keywordInfo);
+    int create(@Param("pmid") int pmid, @Param("keywordInfo") String keywordInfo);
     
     // 삭제
-    void remove(int pmid);
+    int remove(int pmid);
 
     // 수정
-    void update(@Param("pmid") int pmid, @Param("keywordInfo") String keywordInfo);
+    int update(@Param("pmid") int pmid, @Param("keywordInfo") String keywordInfo);
 } 
