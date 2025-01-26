@@ -366,6 +366,7 @@
             return filtered;
         }
 
+        // 삭제 정보 태그
         const updateMention = document.getElementById('updateMention');
         const updateObj = document.getElementById('updateObj');
         const updateBegin = document.getElementById('updateBegin');
@@ -470,7 +471,7 @@
             // String 타입으로 받기위해 직렬화 
             const processedData = JSON.stringify(updateKeywordInfo);
 
-            // 데이터 베이스 값과 같은 형식으로 셋팅
+            // 데이터 베이스 값과 같은 형식
             const newData = {
                 "pmid" : pmid,
                 "keywordInfo" : processedData
@@ -503,11 +504,10 @@
 
         // 삭제 
         function annotationDelete(no){
-            // 
+            // 저장되있는 배열에서 인덱스 값 삭제제
             annotationList.splice(no, 1);
 
-
-            // keyword_info 형식 세팅
+            // keyword_info 형식
             const updateKeywordInfo = [{
                 "annotations" : annotationList,
                 "pmid" : pmid,
@@ -515,10 +515,10 @@
                 "timestamp" : timestamp,
                 "_id" : _id
             }];
-            console.log(updateKeywordInfo)
-            
+            // 직렬화
             const processedData = JSON.stringify(updateKeywordInfo);
 
+            // 데이터 베이스 형식
             const newData = {
                 "pmid" : pmid,
                 "keywordInfo" : processedData
@@ -553,12 +553,6 @@
             text = list[0].text;
             timestamp = list[0].timestamp;
             _id = list[0]._id;
-
-            console.log(annotationList);
-            console.log(pmid);
-            console.log(text);
-            console.log(timestamp);
-            console.log(_id);
         }
 
         // 어노테이션 목록 클릭 시 상세 내용 셋팅
@@ -570,12 +564,6 @@
             obj = annotationList[index].obj;
             prob = annotationList[index].prob;
             span = annotationList[index].span;
-            console.log(id);
-            console.log(is_neural_normalized);
-            console.log(mention);
-            console.log(obj);
-            console.log(prob);
-            console.log(span);
         }
 
 
@@ -592,7 +580,7 @@
             searchContent.classList.add('d-none');
         })
 
-        // 
+        // 업데이트 보기기 닫기
         document.getElementById('updateCloseBtn').addEventListener('click',()=>{
             const annotationContainer = document.getElementById('updateContent');
             annotationContainer.classList.add('d-none');
